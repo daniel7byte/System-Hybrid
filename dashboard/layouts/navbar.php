@@ -41,7 +41,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<?=APP_URL.'auth/logout.php'?>">Salir</a></li>
+        <li><a href="<?=APP_URL.'auth/logout.php'?>"><?=$_SESSION['usuario']?> | Salir</a></li>
       </ul>
     </div>
   </div>

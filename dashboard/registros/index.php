@@ -18,7 +18,8 @@
     <title>Listado de documentos</title>
     <style media="screen">
       tfoot input {
-        width: 100%;
+        width: 99%;
+		min-width: 60px;
         padding: 3px;
         box-sizing: border-box;
       }
@@ -36,7 +37,7 @@
           <table id="myTable" class="display" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>#</th>
+                <!--th>#</th-->
                 <th>Fecha</th>
                 <th>E/S</th>
                 <th>T. Documento</th>
@@ -59,7 +60,7 @@
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                   <th>F. Creacion</th>
                 <?php } ?>
-                <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
+                <?php if($_SESSION['rol'] == 'ADMIN' OR $_SESSION['rol'] == 'USER'){ ?>
                   <th>ID. Usuario</th>
                 <?php } ?>
 
@@ -68,7 +69,7 @@
             </thead>
             <tfoot>
               <tr>
-                <th>#</th>
+                <!--th>#</th-->
                 <th>Fecha</th>
                 <th>E/S</th>
                 <th>T. Documento</th>
@@ -91,7 +92,7 @@
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                   <th>F. Creacion</th>
                 <?php } ?>
-                <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
+                <?php if($_SESSION['rol'] == 'ADMIN' OR $_SESSION['rol'] == 'USER'){ ?>
                   <th>ID. Usuario</th>
                 <?php } ?>
 
@@ -100,17 +101,17 @@
             </tfoot>
             <tbody>
               <?php
-                if($_SESSION['rol'] == 'ADMIN'){
+                #if($_SESSION['rol'] == 'ADMIN'){
                   $query = $mysql->prepare("SELECT * FROM registros ORDER BY id DESC");
-                }else{
-                  $query = $mysql->prepare("SELECT * FROM registros WHERE idUsuario = '".$_SESSION['id']."' ORDER BY id DESC");
-                }
+                #}else{
+                #  $query = $mysql->prepare("SELECT * FROM registros WHERE idUsuario = '".$_SESSION['id']."' ORDER BY id DESC");
+                #}
                 $query->execute();
                 $rows = $query->fetchAll();
                 foreach ($rows as $row) {
               ?>
               <tr>
-                <td><?=$row['id']?></td>
+                <!--td><?#=$row['id']?></td-->
                 <td><?=$row['fechaManual']?></td>
                 <td><?=$row['eS']?></td>
                 <td><?=$row['tipoDocumento']?></td>
@@ -155,7 +156,7 @@
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                   <td><?=$row['fechaCreacion']?></td>
                 <?php } ?>
-                <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
+                <?php if($_SESSION['rol'] == 'ADMIN' OR $_SESSION['rol'] == 'USER'){ ?>
                   <td>
                     <?php
                     $queryUser = $mysql->prepare("SELECT * FROM usuarios WHERE id = :id");

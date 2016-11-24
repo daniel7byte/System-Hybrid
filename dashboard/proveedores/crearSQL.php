@@ -19,17 +19,25 @@
   <body>
     <em>
       <?php
-        $query = $mysql->prepare("INSERT INTO proveedores (nombre, nit, direccion, telefono) VALUES (:nombre, :nit, :direccion, :telefono)");
-        $query->execute([
-          ':nombre' => $_POST['nombre'],
-          ':nit' => $_POST['nit'],
-          ':telefono' => $_POST['telefono'],
-          ':direccion' => $_POST['direccion']
-        ]);
-        echo "Proveedor Registrado!";
+	  
+		$queryCount = $mysql->prepare("SELECT * FROM proveedores WHERE nit = :nit");
+        $queryCount->execute([':nit' => $_POST['nit']]);
+        $rowCount = $queryCount->rowCount();
+        if ($rowCount > 0) {
+			echo "<span style='color: red;'>Proveedor ya creado!</span>";
+		}else{
+			$query = $mysql->prepare("INSERT INTO proveedores (nombre, nit, direccion, telefono) VALUES (:nombre, :nit, :direccion, :telefono)");
+			$query->execute([
+			  ':nombre' => $_POST['nombre'],
+			  ':nit' => $_POST['nit'],
+			  ':telefono' => $_POST['telefono'],
+			  ':direccion' => $_POST['direccion']
+			]);
+			echo "Proveedor Registrado!";
+		}
       ?>
       <script type="text/javascript">
-        setTimeout(function(){ window.location = '<?=APP_URL?>dashboard/proveedores/index.php'; }, 1000);
+        setTimeout(function(){ window.location = '<?=APP_URL?>dashboard/proveedores/index.php'; }, 1500);
       </script>
     </em>
     <script src="<?=APP_URL?>resources/js/jquery-3.1.1.min.js" charset="utf-8"></script>

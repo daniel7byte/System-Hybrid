@@ -7,7 +7,7 @@
     exit;
   }
   
-  header('Location: ' . APP_URL. 'registros/index.php');
+  header('Location: ' . APP_URL. 'dashboard/registros/index.php');
   exit;
 ?>
 <!DOCTYPE html>

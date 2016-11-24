@@ -46,14 +46,14 @@
                 <div class="form-group">
                   <label for="telefono" class="col-lg-2 control-label">Telefono</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                    <input type="text" class="form-control" id="telefono" name="telefono" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="direccion" class="col-lg-2 control-label">Direccion</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    <input type="text" class="form-control" id="direccion" name="direccion" >
                   </div>
                 </div>
 

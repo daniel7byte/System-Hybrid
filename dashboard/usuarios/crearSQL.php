@@ -22,12 +22,13 @@
         $options = [
           'cost' => 12,
         ];
-        $hash = password_hash($_GET['contrasenia'], PASSWORD_BCRYPT, $options);
+        $hash = password_hash($_POST['contrasenia'], PASSWORD_BCRYPT, $options);
 
-        $query = $mysql->prepare("INSERT INTO registros (usuario, contrasenia) VALUES (:usuario, :contrasenia)");
+        $query = $mysql->prepare("INSERT INTO usuarios (usuario, contrasenia, rol) VALUES (:usuario, :contrasenia, :rol)");
         $query->execute([
           ':usuario' => $_POST['usuario'],
-          ':contrasenia' => $hash
+		  ':contrasenia' => $hash,
+		  ':rol' => $_POST['rol']
         ]);
         echo "Usuario Registrado!";
       ?>

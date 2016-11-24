@@ -60,7 +60,7 @@
                       <option value="<?=$row->tipoDocumento?>"><?=$row->tipoDocumento?></option>
                       <option value="" disabled>----------</option>
                       <option value="CXC">CXC</option>
-                      <option value="DITRIJUEGOS">DITRIJUEGOS</option>
+                      <option value="DISTRIJUEGOS">DISTRIJUEGOS</option>
                       <option value="SIN IVA">SIN IVA</option>
                       <option value="FUERA INVENTARIO">FUERA INVENTARIO</option>
                       <option value="COMPRA">COMPRA</option>
@@ -78,11 +78,33 @@
                     <input type="text" class="form-control" id="consecutivoManual" name="consecutivoManual" value="<?=$row->consecutivoManual?>" required autofocus>
                   </div>
                 </div>
+				
+				<?php
+				
+					try {
+					  $mysqlMEGA = new PDO('mysql:host=localhost;dbname=controlmega', 'root', '@Soporte7805');
+					} catch (Exception $e) {
+					  echo "Error: " . $e->getMessage();
+					  exit;
+					}
+					
+				?>
 
                 <div class="form-group">
                   <label for="referencia" class="col-lg-2 control-label">Referencia</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="referencia" name="referencia" value="<?=$row->referencia?>" required>
+					<select class="selectpicker" data-style="btn-primary" data-live-search="true" id="referencia" name="referencia" data-size="10" data-width="auto" required>
+					  <option value="<?=$row->referencia?>" data-tokens="<?=$row->referencia?>"><?=$row->referencia?></option>
+					  <option data-divider="true" disabled>----------</option>
+                      <?php
+                        $queryMEGA = $mysqlMEGA->prepare("SELECT descripcion, referencia FROM articulos ORDER BY referencia ASC");
+                        $queryMEGA->execute();
+                        $resultMEGA = $queryMEGA->fetchAll();
+                        foreach ($resultMEGA as $rowMEGA) {
+                      ?>
+                        <option value="<?=$rowMEGA['referencia']?> (<?=$rowMEGA['descripcion']?>)" data-tokens="<?=$rowMEGA['referencia']?>"><?=$rowMEGA['referencia']?> (<?=$rowMEGA['descripcion']?>)</option>
+                      <?php } ?>
+                    </select>
                   </div>
                 </div>
 
@@ -147,16 +169,18 @@
                 <div class="form-group">
                   <label for="refAdmin" class="col-lg-2 control-label">Referencia <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="refAdmin" name="refAdmin" value="<?=$row->refAdmin?>" required>
+                    <input type="text" class="form-control" id="refAdmin" name="refAdmin" value="<?=$row->refAdmin?>">
                   </div>
                 </div>
+                <?php }else{ ?>
+					<input type="hidden" class="form-control" id="refAdmin" name="refAdmin" value="<?=$row->refAdmin?>">
                 <?php } ?>
 
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                 <div class="form-group">
                   <label for="contabilizadoAdmin" class="col-lg-2 control-label">Contabilidad <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <select class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin" required>
+                    <select class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin">
                       <option value="<?=$row->contabilizadoAdmin?>"><?php if($row->contabilizadoAdmin == 0){echo 'Sin contabilizar';}else{echo 'Contabilizado';} ?></option>
                       <option value="" disabled>----------</option>
                       <option value="0">Sin contabilizar</option>
@@ -164,13 +188,15 @@
                     </select>
                   </div>
                 </div>
+                <?php }else{ ?>
+					<input type="hidden" class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin" value="<?=$row->contabilizadoAdmin?>">
                 <?php } ?>
 
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                 <div class="form-group">
                   <label for="error" class="col-lg-2 control-label">Error <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <select class="form-control" id="error" name="error" required>
+                    <select class="form-control" id="error" name="error">
                       <option value="<?=$row->error?>"><?php if($row->error == 0){echo 'Sin errores';}else{echo 'Con errores';} ?></option>
                       <option value="" disabled>----------</option>
                       <option value="0">Sin errores</option>
@@ -178,6 +204,8 @@
                     </select>
                   </div>
                 </div>
+                <?php }else{ ?>
+					<input type="hidden" class="form-control" id="error" name="error" value="<?=$row->error?>">
                 <?php } ?>
 
                 <div class="form-group">

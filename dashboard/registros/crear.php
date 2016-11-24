@@ -52,7 +52,7 @@
                   <div class="col-lg-10">
                     <select class="form-control" id="tipoDocumento" name="tipoDocumento">
                       <option value="CXC">CXC</option>
-                      <option value="DITRIJUEGOS">DITRIJUEGOS</option>
+                      <option value="DISTRIJUEGOS">DISTRIJUEGOS</option>
                       <option value="SIN IVA">SIN IVA</option>
                       <option value="FUERA INVENTARIO">FUERA INVENTARIO</option>
                       <option value="COMPRA">COMPRA</option>
@@ -71,10 +71,30 @@
                   </div>
                 </div>
 
+				<?php
+				
+					try {
+					  $mysqlMEGA = new PDO('mysql:host=localhost;dbname=controlmega', 'root', '@Soporte7805');
+					} catch (Exception $e) {
+					  echo "Error: " . $e->getMessage();
+					  exit;
+					}
+					
+				?>
+				
                 <div class="form-group">
                   <label for="referencia" class="col-lg-2 control-label">Referencia</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="referencia" name="referencia" required>
+                    <select class="selectpicker" data-style="btn-primary" data-live-search="true" id="referencia" name="referencia" data-size="10" data-width="auto" required>
+                      <?php
+                        $queryMEGA = $mysqlMEGA->prepare("SELECT descripcion, referencia FROM articulos ORDER BY referencia ASC");
+                        $queryMEGA->execute();
+                        $resultMEGA = $queryMEGA->fetchAll();
+                        foreach ($resultMEGA as $rowMEGA) {
+                      ?>
+                        <option value="<?=$rowMEGA['referencia']?> (<?=$rowMEGA['descripcion']?>)" data-tokens="<?=$rowMEGA['referencia']?>"><?=$rowMEGA['referencia']?> (<?=$rowMEGA['descripcion']?>)</option>
+                      <?php } ?>
+                    </select>
                   </div>
                 </div>
 
@@ -130,33 +150,39 @@
                 <div class="form-group">
                   <label for="refAdmin" class="col-lg-2 control-label">Referencia <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="refAdmin" name="refAdmin" required>
+                    <input type="text" class="form-control" id="refAdmin" name="refAdmin">
                   </div>
                 </div>
+				<?php }else{ ?>
+					<input type="hidden" class="form-control" id="refAdmin" name="refAdmin">
                 <?php } ?>
 
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                 <div class="form-group">
                   <label for="contabilizadoAdmin" class="col-lg-2 control-label">Contabilidad <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <select class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin" required>
-                      <option value="0">Sin contabilizar</option>
+                    <select class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin">
+                      <option value="0" selected>Sin contabilizar</option>
                       <option value="1">Contabilizado</option>
                     </select>
                   </div>
                 </div>
+                <?php }else{ ?>
+					<input type="hidden" class="form-control" id="contabilizadoAdmin" name="contabilizadoAdmin" value="0">
                 <?php } ?>
 
                 <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                 <div class="form-group" style="display: none;">
                   <label for="error" class="col-lg-2 control-label">Error <span style="color: red;">ADMIN</span></label>
                   <div class="col-lg-10">
-                    <select class="form-control" id="error" name="error" required>
+                    <select class="form-control" id="error" name="error">
                       <option value="0" selected>Sin errores</option>
                       <option value="1">Con errores</option>
                     </select>
                   </div>
                 </div>
+                <?php }else{ ?>
+					<input type="hidden" class="form-control" id="error" name="error" value="0">
                 <?php } ?>
 
                 <div class="form-group">
