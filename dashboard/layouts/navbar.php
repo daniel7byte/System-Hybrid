@@ -12,7 +12,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?=APP_URL?>">Inicio <span class="sr-only">(current)</span></a></li>
+        <li><a href="<?=APP_URL?>">Inicio <span class="sr-only">(current)</span></a></li>
         <?php
           if($_SESSION['rol'] == 'ADMIN'){
         ?>
@@ -41,7 +41,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<?=APP_URL.'auth/logout.php'?>"><?=$_SESSION['usuario']?> | Salir</a></li>
+        <li class="active"><a href="<?=APP_URL.'auth/logout.php'?>"><?=$_SESSION['usuario']?> | Salir</a></li>
       </ul>
     </div>
   </div>

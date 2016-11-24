@@ -32,7 +32,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <h2>Listado de usuarios</h2>
+          <h2>Listado de documentos</h2>
           <hr>
           <table id="myTable" class="display" cellspacing="0" width="100%">
             <thead>
@@ -173,7 +173,7 @@
                   <a href="<?=APP_URL?>dashboard/registros/errorStatus.php?id=<?=$row['id']?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-warning-sign"></span></a>
                   <?php if($_SESSION['rol'] == 'ADMIN'){ ?>
                     <a href="<?=APP_URL?>dashboard/registros/editar.php?id=<?=$row['id']?>" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a href="<?=APP_URL?>dashboard/registros/delete.php?id=<?=$row['id']?>" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a href="<?=APP_URL?>dashboard/registros/delete.php?id=<?=$row['id']?>" onclick="return confirm('¿Seguro que quiere eliminar este registro?');" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                   <?php } ?>
                 </td>
               </tr>
@@ -210,6 +210,11 @@
                 }
             } );
         } );
+		
+		
+		$( "input[placeholder|='Fecha']" ).attr('type', 'date');
+		$( "input[placeholder|='F. Creacion']" ).attr('type', 'date');
+		
     } );
     </script>
   </body>

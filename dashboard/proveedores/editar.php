@@ -51,14 +51,14 @@
                 <div class="form-group">
                   <label for="telefono" class="col-lg-2 control-label">Telefono</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="telefono" name="telefono" value="<?=$row->telefono?>" required>
+                    <input type="text" class="form-control" id="telefono" name="telefono" value="<?=$row->telefono?>" >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="direccion" class="col-lg-2 control-label">Direccion</label>
                   <div class="col-lg-10">
-                    <input type="text" class="form-control" id="direccion" name="direccion" value="<?=$row->direccion?>" required>
+                    <input type="text" class="form-control" id="direccion" name="direccion" value="<?=$row->direccion?>" >
                   </div>
                 </div>
 
