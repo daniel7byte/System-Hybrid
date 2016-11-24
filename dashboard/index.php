@@ -6,6 +6,9 @@
     header('Location: ' . APP_URL . 'index.php');
     exit;
   }
+  
+  header('Location: ' . APP_URL. 'registros/index.php');
+  exit;
 ?>
 <!DOCTYPE html>
 <html>
